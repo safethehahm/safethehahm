@@ -282,6 +282,11 @@ nav.main a[aria-current="page"]::after{content:"";position:absolute;left:12px;ri
 .tbl td:last-child{font-family:var(--font-mono);font-size:12px;color:var(--faint);white-space:nowrap}
 .tbl.txt td:last-child{font-family:inherit;font-size:inherit;color:inherit;white-space:normal}
 .tbl.txt td:first-child{white-space:nowrap;font-weight:600}
+.doc-box{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 28px;align-items:center;border:1px solid var(--rule);background:var(--paper);padding:22px 24px;margin-top:28px}
+.doc-box .t{font-weight:700;font-size:16.5px;color:var(--ink);margin:4px 0 0}
+.doc-box .m{font-size:13px;color:var(--muted);margin:8px 0 0;line-height:1.6}
+.doc-box .m a{color:var(--teal-ink)}
+@media (max-width:640px){.doc-box{grid-template-columns:1fr}}
 .plain{padding-left:20px;display:grid;gap:8px}
 .plain li::marker{color:var(--teal)}
 .field{background:var(--paper);padding:24px 26px;display:grid;gap:10px}
