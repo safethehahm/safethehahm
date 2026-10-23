@@ -43,6 +43,7 @@
     if (!data.company || !data.phone) { show('회사명/성명과 연락처를 입력해 주세요.', false); return; }
     if (data.agree !== 'yes') { show('개인정보 수집·이용에 동의해 주세요.', false); return; }
 
+    data.via = 'form';
     submit.disabled = true;
     show('전송하고 있습니다.', true);
 
