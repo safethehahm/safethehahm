@@ -56,7 +56,8 @@
       .then(function () {
         // 접수 후에는 입력 칸과 버튼을 감추고 완료 안내만 남긴다 (빈 폼 재전송 방지)
         form.reset();
-        Array.prototype.forEach.call(form.children, function (el) { if (el !== msg) el.hidden = true; });
+        form.parentNode.insertBefore(msg, form);
+        form.hidden = true;
         show('상담 신청이 접수되었습니다. 공인노무사가 확인 후 연락드리겠습니다.', true);
         msg.style.fontSize = '17px';
         msg.style.padding = '24px 0';
