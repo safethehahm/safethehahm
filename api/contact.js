@@ -24,7 +24,11 @@ module.exports = async (req, res) => {
   }
 
   // 자동 입력 방지 칸에 값이 있으면 조용히 종료
-  if (body.website) return res.status(200).json({ ok: true });
+  // (칸 이름이 website였을 때 크롬 자동완성이 채워 실제 신청이 버려진 적이 있어 hp_check로 바꿈)
+  if (body.hp_check) {
+    console.log('honeypot: 신청 무시', String(body.hp_check).slice(0, 40));
+    return res.status(200).json({ ok: true });
+  }
 
   const d = {};
   for (const k of Object.keys(LIMIT)) d[k] = clean(body[k], LIMIT[k]);
@@ -64,7 +68,10 @@ module.exports = async (req, res) => {
       headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    if (!r.ok) return res.status(502).json({ ok: false });
+    if (!r.ok) {
+      console.error('resend 실패', r.status, (await r.text()).slice(0, 300));
+      return res.status(502).json({ ok: false });
+    }
     return res.status(200).json({ ok: true });
   } catch (e) {
     return res.status(502).json({ ok: false });
