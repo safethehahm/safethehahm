@@ -54,4 +54,6 @@
 
 ## 수정 방법
 
-시안 원본(`안전더함_홈페이지시안.html`)을 고친 뒤 `build.ps1`을 실행하면 페이지 HTML, `assets/site.css`, `sitemap.xml`이 다시 만들어집니다. `assets/site.js`, `api/contact.js`, `vercel.json`, `robots.txt`, `favicon.svg`, `404.html`, `README.md`는 직접 관리하는 파일이라 build가 건드리지 않습니다.
+시안 원본(`안전더함_홈페이지시안.html`)을 고친 뒤 `build.ps1`을 실행하면 페이지 HTML, `assets/site.css`, `sitemap.xml`이 다시 만들어집니다. `assets/site.js`, `api/contact.js`, `vercel.json`, `robots.txt`, `favicon.svg`, `og.png`, `apple-touch-icon.png`, `404.html`, `README.md`는 직접 관리하는 파일이라 build가 건드리지 않습니다.
+
+`og.png`(링크 공유 미리보기, 1200×630)와 `apple-touch-icon.png`(휴대폰 홈 화면 아이콘, 180×180)는 상위 폴더의 `make_og.ps1`로 만듭니다. 문구를 바꾸려면 그 파일을 고친 뒤 `make_og.ps1 -OutDir site`로 다시 만듭니다(Pretendard 서체 필요).
