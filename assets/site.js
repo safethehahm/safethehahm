@@ -54,8 +54,12 @@
     })
       .then(function (r) { if (!r.ok) throw new Error('send failed'); return r.json(); })
       .then(function () {
-        show('상담 신청이 접수되었습니다. 공인노무사가 확인 후 연락드리겠습니다.', true);
+        // 접수 후에는 입력 칸과 버튼을 감추고 완료 안내만 남긴다 (빈 폼 재전송 방지)
         form.reset();
+        Array.prototype.forEach.call(form.children, function (el) { if (el !== msg) el.hidden = true; });
+        show('상담 신청이 접수되었습니다. 공인노무사가 확인 후 연락드리겠습니다.', true);
+        msg.style.fontSize = '17px';
+        msg.style.padding = '24px 0';
       })
       .catch(function () {
         show('전송하지 못했습니다. 02-6949-6920 또는 thehahm@thlabor.co.kr로 연락해 주세요.', false);
