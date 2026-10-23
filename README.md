@@ -61,6 +61,8 @@
 
 ## 수정 방법
 
-시안 원본(`안전더함_홈페이지시안.html`)을 고친 뒤 `build.ps1`을 실행하면 페이지 HTML, `assets/site.css`, `sitemap.xml`이 다시 만들어집니다. `assets/site.js`, `api/contact.js`, `vercel.json`, `robots.txt`, `favicon.svg`, `og.png`, `apple-touch-icon.png`, `404.html`, `README.md`는 직접 관리하는 파일이라 build가 건드리지 않습니다.
+시안 원본(`안전더함_홈페이지시안.html`)을 고친 뒤 `build.ps1`을 실행하면 페이지 HTML, `assets/site.css`, `sitemap.xml`이 다시 만들어집니다. `assets/site.js`, `api/contact.js`, `vercel.json`, `robots.txt`, `favicon.svg`, `og.png`, `apple-touch-icon.png`, `files/`, `404.html`, `README.md`는 직접 관리하는 파일이라 build가 건드리지 않습니다.
+
+`files/`에는 내려받기용 자료를 둡니다. `2026-moel-self-diagnosis.pdf`는 고용노동부 「사업장 기초노동질서 자율진단표」(2026.8.28 공표) 원본입니다. 고용노동부 조건상 재배포는 자유지만 수정 배포는 금지이므로, 파일 내용은 절대 고치지 않습니다. 새 연도판이 나오면 파일을 교체하고 시안의 `doc-box` 문구(연도, 쪽수, 공표일)를 함께 고칩니다.
 
 `og.png`(링크 공유 미리보기, 1200×630)와 `apple-touch-icon.png`(휴대폰 홈 화면 아이콘, 180×180)는 상위 폴더의 `make_og.ps1`로 만듭니다. 문구를 바꾸려면 그 파일을 고친 뒤 `make_og.ps1 -OutDir site`로 다시 만듭니다(Pretendard 서체 필요).
