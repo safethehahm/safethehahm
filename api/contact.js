@@ -23,11 +23,11 @@ module.exports = async (req, res) => {
     try { body = JSON.parse(body); } catch (e) { return res.status(400).json({ ok: false }); }
   }
 
-  // 자동 입력 방지 칸에 값이 있으면 조용히 종료
-  // (칸 이름이 website였을 때 크롬 자동완성이 채워 실제 신청이 버려진 적이 있어 hp_check로 바꿈)
-  if (body.hp_check) {
-    console.log('honeypot: 신청 무시', String(body.hp_check).slice(0, 40));
-    return res.status(200).json({ ok: true });
+  // 자동 발송 방지: 홈페이지 폼(site.js)에서 보낸 신청만 받는다.
+  // 숨은 입력 칸 방식은 크롬 자동완성이 칸을 채워 실제 신청이 버려져서 쓰지 않는다.
+  if (body.via !== 'form') {
+    console.log('폼 외 요청 거절');
+    return res.status(400).json({ ok: false, error: 'source' });
   }
 
   const d = {};
