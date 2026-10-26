@@ -472,4 +472,28 @@ footer a:hover{color:#FFFFFF}
   .mbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--bg);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
   header.site .hd-cta{display:none}
 }
+
+/* 모바일 최적화 (2026-10-26) */
+@media (max-width:900px){
+  .common b{grid-column:1}
+  .common .go{grid-column:2;grid-row:1/span 3;align-self:center}
+}
+@media (max-width:620px){
+  html{overflow-x:clip}
+  .hero-in{padding-block:64px 44px}
+  .hero-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-nav a,.hero-nav a:nth-child(n){padding:14px 16px;border-left:1px solid rgba(255,255,255,.08);border-top:1px solid rgba(255,255,255,.08)}
+  .hero-nav a:nth-child(odd){border-left:0}
+  .hero-nav a:last-child:nth-child(odd){grid-column:1/-1}
+  .hero-nav b{font-size:15px}
+  .hero-nav small{display:none}
+  .areas a{grid-template-columns:minmax(0,1fr) 24px;gap:6px 12px;padding:22px 0}
+  .areas .n,.areas .nm,.areas .df,.areas .sv{grid-column:1}
+  .areas .go{grid-column:2;grid-row:1/span 4;align-self:center}
+  .areas .n{font-size:13px}
+  .areas h3{font-size:19px}
+  .areas small,.areas .sv span{font-size:12px}
+  .docs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-inline:calc(var(--gut) * -1);padding:16px var(--gut) 12px;scroll-padding-inline:var(--gut)}
+  .docs .doc,.docs .doc:nth-child(n){flex:0 0 84%;scroll-snap-align:start;border:1px solid var(--line);border-radius:4px;padding:20px 18px}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
