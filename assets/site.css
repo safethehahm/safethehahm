@@ -496,4 +496,40 @@ footer a:hover{color:#FFFFFF}
   .docs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-inline:calc(var(--gut) * -1);padding:16px var(--gut) 12px;scroll-padding-inline:var(--gut)}
   .docs .doc,.docs .doc:nth-child(n){flex:0 0 84%;scroll-snap-align:start;border:1px solid var(--line);border-radius:4px;padding:20px 18px}
 }
+
+/* 컴팩트 v2 (2026-10-26): 여백 축소, 장식 요소 정리. 되돌리려면 이 블록 통째로 삭제 */
+:root{--font-en:var(--font-ko)}
+.kicker{display:none}
+.alert .kicker{display:block;font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:none}
+.motto,.hero-rule{display:none}
+.hero-in{padding-block:clamp(56px,7vw,88px) clamp(40px,5vw,60px)}
+.sec{padding-block:clamp(44px,5.5vw,76px)}
+.sec-grid{grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:clamp(24px,3vw,48px)}
+.sec-head{gap:10px}
+.sec-head h2{font-size:clamp(23px,2.4vw,30px)}
+.ph .wrap{padding-block:44px 40px}
+.band{padding-block:44px}
+.docs,.masthead,.verdict,.areas,.sig{border-top:2px solid var(--ink)}
+.hero-nav small,.areas small,.sig h3 small,.ph .en{display:none}
+.hero-nav .n,.areas .n,.practice .n,.toc li span,.flow li::before,.principles li::before,.faq summary .q,.sig-n,.svc .when{letter-spacing:0;font-weight:700;font-size:13px;text-transform:none}
+.hero-nav a{padding:16px 18px 18px}
+.areas a,.practice a{padding:18px 0}
+.matter-list a,.flow li,.principles li,.equation li{padding-block:14px}
+.cases li,.toc li,.ins li{padding-block:12px}
+.faq summary{padding:16px 0}
+.doc{padding:20px 22px 18px;gap:10px}
+.sig .area{padding-block:24px 22px}
+.areas a:hover,.practice a:hover,.matter-list a:hover{padding-left:0}
+.areas a:hover h3,.practice a:hover b,.matter-list a:hover .t{color:var(--teal-ink)}
+@media (hover:hover){
+  .areas .go,.practice .go,.matter-list .go{opacity:0;transition:opacity .2s,transform .25s}
+  .areas a:hover .go,.practice a:hover .go,.matter-list a:hover .go{opacity:1}
+}
+.sec-grid:has(.mgroups){grid-template-columns:1fr;gap:22px}
+.sec-grid:has(.mgroups) .sec-head.sticky{position:static}
+.mgroups{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 44px}
+.mg-k{display:inline-block;background:var(--teal-ink);color:#FFFFFF;padding:3px 10px;border-radius:2px;letter-spacing:0;font-size:12.5px;margin-bottom:10px}
+.matter-list .t{font-size:16.5px}
+.matter-list .d{font-size:13.5px}
+@media (max-width:900px){.mgroups{grid-template-columns:1fr;gap:28px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
