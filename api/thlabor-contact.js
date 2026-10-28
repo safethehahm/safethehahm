@@ -1,9 +1,13 @@
-// 노무법인 더함 공식 홈페이지(thlabor.co.kr) 빠른 상담 → 상담 메일(thehahm@thlabor.co.kr)로 알림 발송
+// 노무법인 더함 공식 홈페이지(thlabor.co.kr) 빠른 상담·상담예약 → 상담 메일(thehahm@thlabor.co.kr)로 알림 발송
 // 안전더함 상담 신청(api/contact.js)과 같은 Vercel 환경변수를 쓴다: RESEND_API_KEY, NOTIFY_FROM, NOTIFY_TO
 // thlabor.co.kr 페이지에서 보낸 요청만 받는다(CORS).
 
 const ALLOW = ['https://thlabor.co.kr', 'https://www.thlabor.co.kr'];
-const LIMIT = { name: 100, phone: 40, email: 120, area: 60, body: 4000, page: 200 };
+const LIMIT = { name: 100, phone: 40, email: 120, area: 60, date: 40, body: 4000, page: 200 };
+const KIND = {
+  'thlabor-quick': { title: '빠른 상담 신청', tag: '더함 빠른상담', board: "'빠른 상담 신청' 게시판(thlabor.co.kr/quick)" },
+  'thlabor-appointment': { title: '상담 예약 신청', tag: '더함 상담예약', board: "'상담 예약' 게시판(thlabor.co.kr/appointment)" }
+};
 
 function clean(v, max) {
   return String(v == null ? '' : v).trim().slice(0, max);
@@ -32,7 +36,8 @@ module.exports = async (req, res) => {
   if (typeof body === 'string') {
     try { body = JSON.parse(body); } catch (e) { return res.status(400).json({ ok: false }); }
   }
-  if (body.via !== 'thlabor-quick') return res.status(400).json({ ok: false, error: 'source' });
+  const kind = KIND[body.via];
+  if (!kind) return res.status(400).json({ ok: false, error: 'source' });
 
   const d = {};
   for (const k of Object.keys(LIMIT)) d[k] = clean(body[k], LIMIT[k]);
@@ -50,19 +55,19 @@ module.exports = async (req, res) => {
 
   const rows = [
     ['이름/회사명', d.name], ['연락처', d.phone], ['이메일', d.email],
-    ['상담 분야', d.area], ['상황', d.body], ['접수 페이지', d.page]
-  ].map(([k, v]) => `<tr><th align="left" style="padding:6px 12px 6px 0;color:#555;white-space:nowrap;vertical-align:top">${k}</th><td style="padding:6px 0;white-space:pre-wrap">${esc(v || '-')}</td></tr>`).join('');
+    ['상담 분야', d.area], ['희망 상담일', d.date], ['상황', d.body], ['접수 페이지', d.page]
+  ].filter(([k, v]) => k !== '희망 상담일' || v).map(([k, v]) => `<tr><th align="left" style="padding:6px 12px 6px 0;color:#555;white-space:nowrap;vertical-align:top">${k}</th><td style="padding:6px 0;white-space:pre-wrap">${esc(v || '-')}</td></tr>`).join('');
 
   const html = `<div style="font-family:sans-serif;font-size:14px;line-height:1.6">
-<p><b>노무법인 더함 홈페이지 빠른 상담 신청</b></p>
+<p><b>노무법인 더함 홈페이지 ${kind.title}</b></p>
 <table style="border-collapse:collapse">${rows}</table>
-<p style="color:#888;font-size:12px">개인정보 수집·이용 동의: 예 · 접수 시각 ${new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}<br>같은 내용이 홈페이지 관리자 화면의 '빠른 상담 신청' 게시판(thlabor.co.kr/quick)에도 저장됩니다.</p>
+<p style="color:#888;font-size:12px">개인정보 수집·이용 동의: 예 · 접수 시각 ${new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}<br>같은 내용이 홈페이지 관리자 화면의 ${kind.board}에도 저장됩니다.</p>
 </div>`;
 
   const payload = {
     from,
     to: [to],
-    subject: `[더함 빠른상담] ${d.area || '상담 신청'} · ${d.name}`,
+    subject: `[${kind.tag}] ${d.area || '상담 신청'} · ${d.name}`,
     html
   };
   if (d.email) payload.reply_to = d.email;
