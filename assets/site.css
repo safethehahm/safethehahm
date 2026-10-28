@@ -525,6 +525,12 @@ footer a:hover{color:#FFFFFF}
   .areas .go,.practice .go,.matter-list .go{opacity:0;transition:opacity .2s,transform .25s}
   .areas a:hover .go,.practice a:hover .go,.matter-list a:hover .go{opacity:1}
 }
+/* 센터 소개: 왼쪽 큰 글씨 칸을 넓게, 구성원은 얼굴 원형 사진 (2026-10-28) */
+@media (max-width:900px){.sec-grid{grid-template-columns:1fr}}
+@media (min-width:901px){.sec-grid:has(> .statement){grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,4.5vw,72px)}}
+.person .who{display:flex;align-items:center;gap:14px}
+.person .av{flex:none;width:64px;height:64px;border-radius:50%;background:var(--line) no-repeat;background-size:230%;box-shadow:0 0 0 1px var(--line),0 0 0 4px var(--bg,#fff)}
+.person .who h3{margin:0}
 .sec-grid:has(.mgroups){grid-template-columns:1fr;gap:22px}
 .sec-grid:has(.mgroups) .sec-head.sticky{position:static}
 .mgroups{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 44px}
