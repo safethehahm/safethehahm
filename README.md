@@ -19,6 +19,7 @@
 | `privacy/` | 개인정보처리방침 |
 | `assets/site.css`, `assets/site.js` | 공통 스타일과 스크립트 |
 | `api/contact.js` | 상담 신청 → 메일 발송 (Vercel 서버 함수) |
+| `api/thlabor-contact.js` | 노무법인 더함 공식 홈페이지(thlabor.co.kr) 빠른 상담 → 같은 상담 메일로 발송. thlabor.co.kr에서 온 요청만 받음 |
 | `robots.txt`, `sitemap.xml` | 검색엔진용 |
 | `vercel.json` | 주소 규칙, 보안 헤더 |
 
