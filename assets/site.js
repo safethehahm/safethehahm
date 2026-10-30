@@ -23,6 +23,28 @@
     });
   });
 
+  // 인사이트 분야별 보기 (스크립트가 없으면 버튼 없이 전체 목록만 보인다)
+  var pf = document.getElementById('postFilter');
+  if (pf) {
+    var items = document.querySelectorAll('#posts > li, .soon li');
+    var posts = document.querySelectorAll('#posts > li');
+    var empty = document.getElementById('postsEmpty');
+    var buttons = pf.querySelectorAll('button');
+    pf.hidden = false;
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var f = b.getAttribute('data-f');
+        buttons.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        items.forEach(function (li) { li.hidden = !!f && li.getAttribute('data-field') !== f; });
+        var shown = 0;
+        posts.forEach(function (li) { if (!li.hidden) shown++; });
+        if (empty) empty.hidden = shown > 0;
+        var soon = document.querySelector('.soon');
+        if (soon) soon.hidden = !soon.querySelector('li:not([hidden])');
+      });
+    });
+  }
+
   // 상담 신청
   var form = document.getElementById('consult');
   if (!form) return;
